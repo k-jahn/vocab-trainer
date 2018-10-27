@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>A Small Vocabulary Trainer</title>
+	<link rel="stylesheet" href="style.css">
+	<meta name="robots" content="noindex">
+</head>
+
+<body>
+	<!-- update the version number as needed -->
+	<script defer src="/__/firebase/5.5.6/firebase-app.js"></script>
+	<!-- include only the Firebase features as you need -->
+	<script defer src="/__/firebase/5.5.6/firebase-auth.js"></script>
+	<script defer src="/__/firebase/5.5.6/firebase-database.js"></script>
+	<script defer src="/__/firebase/5.5.6/firebase-messaging.js"></script>
+	<script defer src="/__/firebase/5.5.6/firebase-storage.js"></script>
+	<!-- initialize the SDK after all desired features are loaded -->
+	<script defer src="/__/firebase/init.js"></script>
+	
+
+	<div class="container">
+
+		<h1>Vocabulary Trainer</h1>
+		<div id="obereAnzeige">
+			<div id="infos">
+				<span id="anzeigeRunde">
+					Round:
+					<span class="wert">
+						0
+					</span>
+				</span>
+				<span id="anzeigeVokabeln">
+					Word:
+					<span class="wert">
+						0
+					</span>
+					/
+					<span class="wert">
+						0
+					</span>
+				</span>
+				<span id="anzeigeRichtig">
+					Correct:
+					<span class="wert">
+						0
+					</span>
+				</span>
+				<span id="anzeigeFalsch">
+					Incorrect:
+					<span class="wert">
+						0
+					</span>
+				</span>
+			</div>
+			<div></div>
+			<div id="controlpanel">
+				<div id="nextList">
+					Train List: 
+					<select name="selectList">
+
+					</select>
+
+					<button id="startEnglish">
+						english
+					</button>
+					<button id="startDeutsch">
+						deutsch
+					</button>
+				</div>
+				<div id="nextRound">
+					<button id="startRound">
+						next round
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="spielBox" class="wortPaar">
+			<div id="english">
+			</div>
+			<div id="deutsch">
+			</div>
+		</div>
+		<div id="ende">
+			<h2>Done! Score: <span class=wert><!-- erreicht --></span> / <span class=wert><!-- maximal --></span></h2>
+		</div>
+		<div id="verlauf">
+
+		</div>
+	</div>
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+			// // The Firebase SDK is initialized and available here!
+			//
+			// firebase.auth().onAuthStateChanged(user => { });
+			// firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+			// firebase.messaging().requestPermission().then(() => { });
+			// firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+			//
+			// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+	
+			try {
+			let app = firebase.app();
+			let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+			console.log(`Firebase SDK loaded with ${features.join(', ')}`);
+			} catch (e) {
+			console.error(e);
+			}
+		});
+	</script>
+	<script src="./vokabeln.js"></script>
+	<script src="./extern/shuffleArray.js"></script>
+	<script src="./vocabulary-trainer.js"></script>
+	<script src="./script.js"></script>
+
+</body>
+
+</html>

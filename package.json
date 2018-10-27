@@ -1,0 +1,17 @@
+{
+  "name": "vocab",
+  "version": "0.0.1",
+  "description": "A small Vocabulary Trainer WebApp",
+  "main": "index.html",
+  "scripts": {
+    "deploy": "firebase deploy",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vocabulary",
+    "trainer",
+    "learn"
+  ],
+  "author": "Konrad Jahn",
+  "license": "ISC"
+}
