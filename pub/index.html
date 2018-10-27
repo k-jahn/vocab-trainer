@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+	<head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>A Small Vocabulary Trainer</title>
@@ -20,62 +20,59 @@
 	<!-- initialize the SDK after all desired features are loaded -->
 	<script defer src="/__/firebase/init.js"></script>
 	
-
+	
 	<div class="container">
-
+		
 		<h1>Vocabulary Trainer</h1>
-		<div id="obereAnzeige">
-			<div id="infos">
-				<span id="anzeigeRunde">
-					Round:
-					<span class="wert">
-						0
-					</span>
-				</span>
-				<span id="anzeigeVokabeln">
-					Word:
-					<span class="wert">
-						0
-					</span>
-					/
-					<span class="wert">
-						0
-					</span>
-				</span>
-				<span id="anzeigeRichtig">
-					Correct:
-					<span class="wert">
-						0
-					</span>
-				</span>
-				<span id="anzeigeFalsch">
-					Incorrect:
-					<span class="wert">
-						0
-					</span>
-				</span>
+		<div id="controlpanel">
+			<div id="nextList">
+				Train List:
+				<select name="selectList">
+		
+				</select>
+		
+				<button id="startEnglish">
+					english
+				</button>
+				<button id="startDeutsch">
+					deutsch
+				</button>
 			</div>
-			<div></div>
-			<div id="controlpanel">
-				<div id="nextList">
-					Train List: 
-					<select name="selectList">
-
-					</select>
-
-					<button id="startEnglish">
-						english
-					</button>
-					<button id="startDeutsch">
-						deutsch
-					</button>
-				</div>
-				<div id="nextRound">
-					<button id="startRound">
-						next round
-					</button>
-				</div>
+			<div id="nextRound">
+				<button id="startRound">
+					next round
+				</button>
 			</div>
+		</div>
+		<div id="infos">
+			<span id="anzeigeRunde">
+				Round:
+				<span class="wert">
+					0
+				</span>
+			</span>
+			<span id="anzeigeVokabeln">
+				Word:
+				<span class="wert">
+					0
+				</span>
+				/
+				<span class="wert">
+					0
+				</span>
+			</span>
+			<span id="anzeigeRichtig">
+				Correct:
+				<span class="wert">
+					0
+				</span>
+			</span>
+			<span id="anzeigeFalsch">
+				Incorrect:
+				<span class="wert">
+					0
+				</span>
+			</span>
 		</div>
 		<div id="spielBox" class="wortPaar">
 			<div id="english">
@@ -84,7 +81,9 @@
 			</div>
 		</div>
 		<div id="ende">
-			<h2>Done! Score: <span class=wert><!-- erreicht --></span> / <span class=wert><!-- maximal --></span></h2>
+			<h2>Done! Score: <span class=wert>
+					<!-- erreicht --></span> / <span class=wert>
+					<!-- maximal --></span></h2>
 		</div>
 		<div id="verlauf">
 
@@ -93,7 +92,7 @@
 
 
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
+		document.addEventListener('DOMContentLoaded', function () {
 			// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
 			// // The Firebase SDK is initialized and available here!
 			//
@@ -103,13 +102,13 @@
 			// firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
 			//
 			// // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-	
+
 			try {
-			let app = firebase.app();
-			let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-			console.log(`Firebase SDK loaded with ${features.join(', ')}`);
+				let app = firebase.app();
+				let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+				console.log(`Firebase SDK loaded with ${features.join(', ')}`);
 			} catch (e) {
-			console.error(e);
+				console.error(e);
 			}
 		});
 	</script>

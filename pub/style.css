@@ -7,11 +7,12 @@ body * {
 	margin: 0 auto;
 }
 
-#obereAnzeige {
-	display: flex;
-	justify-content: space-between; 
-}
 
+#infos {
+	background-color: #dddddd;
+	padding: 1em;
+	text-align: center;
+}
 
 
 #infos .wert {
@@ -68,10 +69,19 @@ body * {
 	display: none;
 }
 
+#controlpanel {
+	padding: 1em;
+	text-align: center
+}
+
 #controlpanel > div {
 	display: none;
 }
 
 .aktiv {
 	display: block !important; 
+}
+
+h3 {
+	background-color: #dddddd;
 }

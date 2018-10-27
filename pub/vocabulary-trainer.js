@@ -3,7 +3,6 @@
 class VocabularyTrainer {
 	constructor(vocabulary) {
 		// status vars
-		this.vocabularyList = vocabulary;
 		this.vocabulary = vocabulary;
 		this.aktuelleVokabeln = [];
 		this.falscheVokabeln = [];
@@ -16,8 +15,8 @@ class VocabularyTrainer {
 		// elemente
 		this.el = {};
 		this.el.controlpanel = document.querySelector('#controlpanel');
-		this.el.nextList= this.el.controlpanel.querySelector('#nextList');
-		this.el.nextRound= this.el.controlpanel.querySelector('#nextRound');
+		this.el.nextList = this.el.controlpanel.querySelector('#nextList');
+		this.el.nextRound = this.el.controlpanel.querySelector('#nextRound');
 		this.el.startEnglish = this.el.controlpanel.querySelector("#startEnglish");
 		this.el.startDeutsch = this.el.controlpanel.querySelector("#startDeutsch");
 		this.el.startRound = this.el.controlpanel.querySelector("#startRound");
@@ -27,6 +26,14 @@ class VocabularyTrainer {
 		this.el.verlauf = document.querySelector('#verlauf');
 		this.el.abfrageFeld;
 		this.el.vorgabeFeld;
+		// populate select
+		for (let list in this.vocabulary) {
+			let option = document.createElement('option');
+			option.innerHTML = this.vocabulary[list].name;
+			option.value = list;
+			this.el.selectList.appendChild(option);
+		}
+
 		// event listneners
 		const newGameListener = function (abfrageSprache, vorgebeneSprache) {
 			this.abfrageSprache = abfrageSprache;
@@ -43,8 +50,9 @@ class VocabularyTrainer {
 
 
 	neuesSpiel() {
+		if (!this.el.selectList.value) return;
 		// neue vokabelliste
-		this.aktuelleVokabeln = this.vocabularyList.shuffle();;
+		this.aktuelleVokabeln = this.vocabulary[this.el.selectList.value].vocabulary.shuffle();;
 		// werte auf startwerte zuruecksetzen
 		this.runde = 1;
 		this.index = 0;
@@ -120,23 +128,37 @@ class VocabularyTrainer {
 		this.zeigeNeuesSpiel();
 		this.el.spielBox.classList.remove('aktiv');
 		this.el.ende.classList.add('aktiv');
-		const punkte = this.verlauf.reduce(function (a, x, i) {
+		const score = this.verlauf.reduce(function (a, x, i) {
 			switch (i) {
 				case 0:
-					return a + 10 * x.length;
+					return {
+						achieved: a.achieved + 10 * x.length,
+						max: a.max + 10 * x.length
+					};
 				case 1:
-					return a + 5 * x.length;
+					return {
+						achieved: a.achieved + 5 * x.length,
+						max: a.max + 10 * x.length
+					};
 				case 2:
-					return a + 2 * x.length;
+					return {
+						achieved: a.achieved + 2 * x.length,
+						max: a.max + 10 * x.length
+					};
 				case 3:
-					return a + 1 * x.length;
+					return {
+						achieved: a.achieved + 1 * x.length,
+						max: a.max + 10 * x.length
+					};
 				default:
-					return a;
+					return {
+						achieved: a.achieved,
+						max: a.max + 10 * x.length
+					};
 			}
-		}, 0);
-		const punkteMax = this.vocabularyList.length * 10;
-		this.el.ende.querySelector('.wert:nth-child(1)').innerHTML = punkte;
-		this.el.ende.querySelector('.wert:nth-child(2)').innerHTML = punkteMax;
+		}, { achieved: 0, max: 0 });
+		this.el.ende.querySelector('.wert:nth-child(1)').innerHTML = score.achieved;
+		this.el.ende.querySelector('.wert:nth-child(2)').innerHTML = score.max;
 		console.log(this.verlauf);
 		this.verlauf.forEach(function (runde, i) {
 			let rundenUeberschrift = document.createElement('h3');
