@@ -190,7 +190,7 @@ class VocabularyTrainer {
 		let english = document.createElement('div');
 		english.innerHTML = vokabel.english.join(', ');
 		let deutsch = document.createElement('div');
-		deutsch.innerHTML = vokabel.deutsch;
+		deutsch.innerHTML = vokabel.deutsch.join(', ');
 		wortPaar.appendChild(english);
 		wortPaar.appendChild(deutsch);
 		wortPaar.classList.add(richtig);

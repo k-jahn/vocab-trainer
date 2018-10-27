@@ -43,7 +43,7 @@ const vocabulary = {
 	},
 
 	'book2_unit1_station0': {
-		name: 'Book2 Unit 1 Station 0: My friend and I',
+		name: 'Book2 Unit 1 Check-in: My friend and I',
 		vocabulary: [
 			{
 				english: ['past'],
@@ -70,7 +70,7 @@ const vocabulary = {
 				deutsch: ['Jahrbuch']
 			},
 			{
-				english: ['round of Boxing'],
+				english: ['round of boxing'],
 				deutsch: ['Boxrunde']
 			},
 			{
@@ -87,7 +87,7 @@ const vocabulary = {
 			},
 			{
 				english: ['to lie'],
-				deutsch: ['Lügen']
+				deutsch: ['lügen']
 			},
 			{
 				english: ['trip'],
@@ -132,10 +132,6 @@ const vocabulary = {
 			{
 				english: ['highlight'],
 				deutsch: ['Höhepunkt', 'Hightlight']
-			},
-			{
-				english: [''],
-				deutsch: ['']
 			},
 		]
 	},
@@ -318,7 +314,7 @@ const vocabulary = {
 		vocabulary: [
 			{
 				english: ['challenge'],
-				deutsch: ['Herausvorderung']
+				deutsch: ['Herausforderung']
 			},
 			{
 				english: ['course'],
