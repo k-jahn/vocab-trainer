@@ -2,10 +2,14 @@
   "name": "vocab",
   "version": "0.0.1",
   "description": "A small Vocabulary Trainer WebApp",
-  "main": "index.html",
+  "main": "index.js",
   "scripts": {
-    "deploy": "firebase deploy",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "deploy": "npm run build && firebase deploy",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run build:clean && npm run build:html && npm run build:sass && webpack --mode=development",
+    "build:clean": "rm -rf dist/ && mkdir dist/",
+    "build:sass": "sass src/style.scss dist/style.css",
+    "build:html": "cp -f src/index.html dist/index.html && cp -f src/favicon.png dist/favicon.png"
   },
   "keywords": [
     "vocabulary",
@@ -13,5 +17,9 @@
     "learn"
   ],
   "author": "Konrad Jahn",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  }
 }

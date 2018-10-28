@@ -1,6 +1,6 @@
 'use strict';
 
-class VocabularyTrainer {
+module.exports = class VocabularyTrainer {
 	constructor(vocabulary) {
 		// status vars
 		this.vocabulary = vocabulary;
@@ -9,20 +9,20 @@ class VocabularyTrainer {
 		this.richtigeVokabeln = [];
 		this.verlauf = [];
 		this.index = 0;
-		this.runde = 1;
+		this.round = 1;
 		this.abfrageSprache;
 		this.vorgebeneSprache;
 		// elemente
 		this.el = {};
-		this.el.controlpanel = document.querySelector('#controlpanel');
-		this.el.nextList = this.el.controlpanel.querySelector('#nextList');
-		this.el.nextRound = this.el.controlpanel.querySelector('#nextRound');
-		this.el.startEnglish = this.el.controlpanel.querySelector("#startEnglish");
-		this.el.startDeutsch = this.el.controlpanel.querySelector("#startDeutsch");
-		this.el.startRound = this.el.controlpanel.querySelector("#startRound");
-		this.el.selectList = this.el.controlpanel.querySelector("select");
+		this.el.nextList = document.querySelector('#nextList');
+		this.el.currentList = document.querySelector('#currentList');
+		this.el.nextRound = document.querySelector('#nextRound');
+		this.el.startEnglish = document.querySelector("#startEnglish");
+		this.el.startDeutsch = document.querySelector("#startDeutsch");
+		this.el.startRound = document.querySelector("#startRound");
+		this.el.selectList = document.querySelector("select");
 		this.el.spielBox = document.querySelector('#spielBox');;
-		this.el.ende = document.querySelector('#ende');;
+		this.el.end = document.querySelector('#end');;
 		this.el.verlauf = document.querySelector('#verlauf');
 		this.el.abfrageFeld;
 		this.el.vorgabeFeld;
@@ -38,29 +38,34 @@ class VocabularyTrainer {
 		const newGameListener = function (abfrageSprache, vorgebeneSprache) {
 			this.abfrageSprache = abfrageSprache;
 			this.vorgebeneSprache = vorgebeneSprache;
-			this.neuesSpiel();
+			this.newGame();
 		}.bind(this);
-		this.el.startDeutsch.addEventListener('click', e => newGameListener('deutsch', 'english'));
-		this.el.startDeutsch.addEventListener('touch', e => newGameListener('deutsch', 'english'));
-		this.el.startEnglish.addEventListener('click', e => newGameListener('english', 'deutsch'));
-		this.el.startEnglish.addEventListener('touch', e => newGameListener('english', 'deutsch'));
+		this.el.startDeutsch.addEventListener('click', e => newGameListener('de', 'en'));
+		this.el.startDeutsch.addEventListener('touch', e => newGameListener('de', 'en'));
+		this.el.startEnglish.addEventListener('click', e => newGameListener('en', 'de'));
+		this.el.startEnglish.addEventListener('touch', e => newGameListener('en', 'de'));
 		this.el.startRound.addEventListener('click', e => this.startNeueRunde().bind(this));
-		this.zeigeNeuesSpiel();
+		this.el.startRound.addEventListener('touch', e => this.startNeueRunde().bind(this));
+		this.showNewGame();
 	}
 
-
-	neuesSpiel() {
+	
+	newGame() {
 		if (!this.el.selectList.value) return;
 		// neue vokabelliste
 		this.aktuelleVokabeln = this.vocabulary[this.el.selectList.value].vocabulary.shuffle();;
+		this.el.currentList.innerHTML = `${this.vocabulary[this.el.selectList.value].name} | ${this.abfrageSprache == 'en' ? 'english' : 'deutsch'}`;
 		// werte auf startwerte zuruecksetzen
-		this.runde = 1;
+		this.verlauf = [];
+		this.richtigeVokabeln = [];
+		this.round = 1;
 		this.index = 0;
 		this.el.verlauf.innerHTML = '';
-		this.el.nextList.classList.remove('aktiv');
-		this.el.ende.classList.remove('aktiv');
-		// anzeige and
-		this.el.spielBox.classList.add('aktiv');
+		// display
+		this.el.nextList.classList.remove('active');
+		this.el.currentList.classList.add('active');
+		this.el.end.classList.remove('active');
+		this.el.spielBox.classList.add('active');
 		// abfrageFeld
 		let abfrageAnzeige = document.querySelector('#' + this.abfrageSprache);
 		abfrageAnzeige.innerHTML = '';
@@ -79,23 +84,23 @@ class VocabularyTrainer {
 		this.zeigeVorgabe();
 		this.aktualisiereAnzeigen();
 	}
-
+	
 	zeigeVorgabe() {
 		this.el.vorgabeFeld.innerHTML = this.aktuelleVokabeln[this.index][this.vorgebeneSprache].join(', ');
 	}
-
+	
 	enterGedrueckt(event) {
 		if (event.keyCode == 13 && event.target.value) {
 			event.preventDefault();
-			this.werteEingabe();
+			this.evaluateInput();
 		}
 	}
-
-	werteEingabe() {
+	
+	evaluateInput() {
 		// richtig oder falsch?
 		if (
 			this.aktuelleVokabeln[this.index][this.abfrageSprache]
-				.some(definition => definition == document.querySelector('#abfrageFeld').value)
+			.some(definition => definition == document.querySelector('#abfrageFeld').value)
 		) {
 			this.richtigeVokabeln.push(this.aktuelleVokabeln[this.index]);
 			this.zeigeAbgefragteVokabel(this.aktuelleVokabeln[this.index], 'richtig');
@@ -111,54 +116,52 @@ class VocabularyTrainer {
 			this.zeigeVorgabe();
 		} else {
 			this.verlauf.push(this.richtigeVokabeln);
-			this.el.spielBox.classList.remove('aktiv');
+			this.el.spielBox.classList.remove('active');
 			this.aktualisiereAnzeigen();
 			if (this.falscheVokabeln.length) {
-				this.zeigeNeueRunde();
+				this.showNewRound();
 			} else {
 				this.zeigeEnde();
-				this.verlauf = [];
-				this.richtigeVokabeln = [];
 			}
 		}
 	}
-
+	
 	zeigeEnde() {
 		this.el.verlauf.innerHTML = '';
-		this.zeigeNeuesSpiel();
-		this.el.spielBox.classList.remove('aktiv');
-		this.el.ende.classList.add('aktiv');
+		this.showNewGame();
+		this.el.spielBox.classList.remove('active');
+		this.el.end.classList.add('active');
 		const score = this.verlauf.reduce(function (a, x, i) {
 			switch (i) {
 				case 0:
-					return {
+				return {
 						achieved: a.achieved + 10 * x.length,
 						max: a.max + 10 * x.length
 					};
-				case 1:
+					case 1:
 					return {
 						achieved: a.achieved + 5 * x.length,
 						max: a.max + 10 * x.length
 					};
-				case 2:
+					case 2:
 					return {
 						achieved: a.achieved + 2 * x.length,
 						max: a.max + 10 * x.length
 					};
-				case 3:
+					case 3:
 					return {
 						achieved: a.achieved + 1 * x.length,
 						max: a.max + 10 * x.length
 					};
-				default:
+					default:
 					return {
 						achieved: a.achieved,
 						max: a.max + 10 * x.length
 					};
-			}
-		}, { achieved: 0, max: 0 });
-		this.el.ende.querySelector('.wert:nth-child(1)').innerHTML = score.achieved;
-		this.el.ende.querySelector('.wert:nth-child(2)').innerHTML = score.max;
+				}
+			}, { achieved: 0, max: 0 });
+			this.el.end.querySelector('.wert:nth-child(1)').innerHTML = score.achieved;
+			this.el.end.querySelector('.wert:nth-child(2)').innerHTML = score.max;
 		console.log(this.verlauf);
 		this.verlauf.forEach(function (runde, i) {
 			let rundenUeberschrift = document.createElement('h3');
@@ -172,54 +175,55 @@ class VocabularyTrainer {
 
 	startNeueRunde() {
 		this.el.verlauf.innerHTML = '';
+		this.el.nextRound.classList.remove('active');
 		this.aktuelleVokabeln = this.falscheVokabeln.shuffle();
 		this.falscheVokabeln = [];
 		this.richtigeVokabeln = [];
-		this.runde++;
+		this.round++;
 		this.index = 0;
-		this.el.spielBox.classList.add('aktiv');
+		this.el.spielBox.classList.add('active');
 		this.aktualisiereAnzeigen();
 		this.zeigeVorgabe();
 		this.el.abfrageFeld.focus();
 	}
 
-
-	zeigeAbgefragteVokabel(vokabel, richtig, ende) {
+	
+	zeigeAbgefragteVokabel(vokabel, richtig, end) {
 		let wortPaar = document.createElement('div');
 		wortPaar.classList.add('wortPaar');
 		let english = document.createElement('div');
-		english.innerHTML = vokabel.english.join(', ');
+		english.innerHTML = vokabel.en.join(', ');
 		let deutsch = document.createElement('div');
-		deutsch.innerHTML = vokabel.deutsch.join(', ');
+		deutsch.innerHTML = vokabel.de.join(', ');
 		wortPaar.appendChild(english);
 		wortPaar.appendChild(deutsch);
 		wortPaar.classList.add(richtig);
-		if (ende) {
+		if (end) {
 			this.el.verlauf.appendChild(wortPaar);
 		} else {
 			this.el.verlauf.insertBefore(wortPaar, this.el.verlauf.firstChild);
 		}
 	}
 
-
+	
 	aktualisiereAnzeigen() {
-		document.querySelector('#anzeigeRunde .wert').innerHTML = this.runde;
+		document.querySelector('#anzeigeRunde .wert').innerHTML = this.round;
 		document.querySelector('#anzeigeVokabeln .wert:nth-child(1)').innerHTML = this.index + 1;
 		document.querySelector('#anzeigeVokabeln .wert:nth-child(2)').innerHTML = this.aktuelleVokabeln.length;
 		document.querySelector('#anzeigeRichtig .wert').innerHTML = this.richtigeVokabeln.length;
 		document.querySelector('#anzeigeFalsch .wert').innerHTML = this.falscheVokabeln.length;
-
+		
 	}
-
-	zeigeNeueRunde() {
-		this.el.nextRound.classList.add('aktiv');
-		this.el.nextList.classList.remove('aktiv');
+	
+	showNewRound() {
+		this.el.nextRound.classList.add('active');
 		this.el.startEnglish.focus();
 	}
-
-	zeigeNeuesSpiel() {
-		this.el.nextList.classList.add('aktiv');
-		this.el.nextRound.classList.remove('aktiv');
+	
+	showNewGame() {
+		this.el.nextList.classList.add('active');
+		this.el.currentList.classList.remove('active');
+		this.el.nextRound.classList.remove('active');
 		this.el.startEnglish.focus();
 	}
-}
+};
