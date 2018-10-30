@@ -1,17 +1,29 @@
 import VocabularyTrainer from './vocabulary-trainer';
-import vocabulary from './vocabulary/index';
+// import vocabulary from './vocabulary/index';
 import './vendor/shuffleArray';
 
+let vocabularyTrainer;
 
 document.addEventListener("DOMContentLoaded", function () {
-	// try {
-	// 	let app = firebase.app();
-	// 	let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-	// 	console.log(`Firebase SDK loaded with ${features.join(', ')}`);
-	// } catch (e) {
-	// 	console.error(e);
-	// }
-	console.log(vocabulary);
-	const vocabularyTrainer = new VocabularyTrainer(vocabulary);
+	try {
+		let app = firebase.app();
+		let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
+		let vocabDatabase = app.database().ref('/vocabulary/');
+		console.log(`Firebase SDK loaded with ${features.join(', ')}`);
+		// vocabDatabase.remove()
+		// 	.then(_ => {
+		// 		vocabDatabase.set(vocabulary);
+		// 			console.log('vocabulary uploaded!');
+		// 	});
+		vocabDatabase.once('value')
+			.then(snapshot => {
+				let vocab = snapshot.val();
+				document.querySelector('#loading').classList.remove('active');
+				vocabularyTrainer = new VocabularyTrainer(vocab);
+				console.log(vocab);
+			});
+	} catch (e) {
+		console.error(e);
+	}
 
 });

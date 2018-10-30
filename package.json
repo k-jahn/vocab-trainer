@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "deploy": "npm run build && firebase deploy",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "npm run build && firebase serve",
     "build": "npm run build:clean && npm run build:html && npm run build:sass && webpack --mode=development",
     "build:clean": "rm -rf dist/ && mkdir dist/",
-    "build:sass": "sass src/style.scss dist/style.css",
-    "build:html": "cp -f src/index.html dist/index.html && cp -f src/favicon.png dist/favicon.png"
+    "build:sass": "sass src/scss/index.scss dist/style.css",
+    "build:html": "cp -f src/*.html dist/ && cp -f src/*.png dist/"
   },
   "keywords": [
     "vocabulary",

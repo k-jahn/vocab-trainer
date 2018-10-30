@@ -14,15 +14,16 @@ module.exports = class VocabularyTrainer {
 		this.vorgebeneSprache;
 		// elemente
 		this.el = {};
-		this.el.nextList = document.querySelector('#nextList');
 		this.el.currentList = document.querySelector('#currentList');
+		this.el.controlpanel = document.querySelector('#controlpanel');
+		this.el.end = document.querySelector('#end');;
+		this.el.nextList = document.querySelector('#nextList');
 		this.el.nextRound = document.querySelector('#nextRound');
-		this.el.startEnglish = document.querySelector("#startEnglish");
-		this.el.startDeutsch = document.querySelector("#startDeutsch");
-		this.el.startRound = document.querySelector("#startRound");
 		this.el.selectList = document.querySelector("select");
 		this.el.spielBox = document.querySelector('#spielBox');;
-		this.el.end = document.querySelector('#end');;
+		this.el.startDeutsch = document.querySelector("#startDeutsch");
+		this.el.startEnglish = document.querySelector("#startEnglish");
+		this.el.startRound = document.querySelector("#startRound");
 		this.el.verlauf = document.querySelector('#verlauf');
 		this.el.abfrageFeld;
 		this.el.vorgabeFeld;
@@ -32,6 +33,8 @@ module.exports = class VocabularyTrainer {
 			option.innerHTML = this.vocabulary[list].name;
 			option.value = list;
 			this.el.selectList.appendChild(option);
+		// show controlpanel
+			this.el.controlpanel.classList.add('active');
 		}
 
 		// event listneners

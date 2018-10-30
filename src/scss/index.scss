@@ -1,0 +1,36 @@
+
+// general
+
+body * {
+	font-family: serif;
+}
+
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.hidden {
+	display: none;
+	&.active {
+		display: block; 
+	}
+}
+
+
+.hiddenFlex {
+	display: none !important;
+	&.active {
+		display: flex !important;
+	}
+}
+
+
+
+h3 {
+	background-color: #dddddd;
+}
+
+// imports
+@import 'vocab_trainer';
+@import 'spinner';
