@@ -13,14 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
 		// vocabDatabase.remove()
 		// 	.then(_ => {
 		// 		vocabDatabase.set(vocabulary);
-		// 			console.log('vocabulary uploaded!');
+		// 		console.log('vocabulary uploaded!');
+		// 		console.log(vocabulary);
 		// 	});
 		vocabDatabase.once('value')
 			.then(snapshot => {
 				let vocab = snapshot.val();
 				document.querySelector('#loading').classList.remove('active');
 				vocabularyTrainer = new VocabularyTrainer(vocab);
-				console.log(vocab);
 			});
 	} catch (e) {
 		console.error(e);

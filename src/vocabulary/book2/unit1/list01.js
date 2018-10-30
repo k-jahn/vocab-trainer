@@ -1,5 +1,5 @@
 module.exports = {
-	"name": "Book 2 | Unit 1 | <strong>Station 1: I love red nose day</strong>",
+	"name": "Station 1: I love red nose day",
 	"vocabulary": [
 		{
 			"en": ["the best"],

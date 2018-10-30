@@ -1,65 +1,79 @@
 #infos {
-	.wert {
-		font-weight: bold;
-	}
-	> span {
-		margin-right: 1em;
-	}
-}
-#list {
-	padding: 1em;
-	text-align: right;
+    .wert {
+        font-weight: bold;
+    }
+    >span {
+        margin-right: 1em;
+    }
 }
 
+#list {
+    padding: 1em;
+    text-align: right;
+}
 
 #anzeigeRichtig {
-	color: green;
+    color: green;
 }
+
 #anzeigeFalsch {
-	color: red;
+    color: red;
 }
+
 #infos .wert {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .round {
-	border-radius: 20px;
-	overflow: hidden;
+    border-radius: 20px;
+    overflow: hidden;
 }
 
 .wortPaar {
-	display: flex;
-	margin: 1em 0;
-	font-weight: bold;
-	&.falsch {
-		color: red;
-	}
-	&.richtig {
-		color: green;
-	}
-	div {
-		width: 100%;
-		text-align: center;
-		padding: 1em;
-		height: 2em;
-		line-height: 2;
-	}
+    display: flex;
+    margin: 1em 0;
+    font-weight: bold;
+    &.falsch {
+        color: red;
+    }
+    &.richtig {
+        color: green;
+    }
+    div {
+        width: 100%;
+        text-align: center;
+        padding: 1em;
+        height: 2em;
+        line-height: 2;
+    }
 }
+
 #en {
-	background-color: #5555ff;
+    background-color: #5555ff;
 }
+
 #de {
-	background-color: #55dd55
+    background-color: #55dd55
 }
 
 #end {
-	display: none;
+    display: none;
 }
 
 #controlpanel {
-	background-color: #dddddd;
-	justify-content: space-between;
-	align-items: center;
-	height: 1.5em;
-	padding: 1em;
+    background-color: #dddddd;
+    justify-content: space-between;
+    align-items: center;
+    height: 1.5em;
+    padding: 1em;
+}
+
+#selectBook {
+	width: 10em;
+}
+#selectUnit {
+	width: 10em;
+}
+#selectList {
+	width: 20em;
 }
