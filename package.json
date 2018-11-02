@@ -9,10 +9,7 @@
     "build:prod": "npm run build:clean && npm run build:html && npm run build:sass && webpack --config=webpack.config.prod.js",
     "build:clean": "rm -rf dist/ && mkdir dist/",
     "build:sass": "sass app/scss/index.scss dist/style.css",
-    "build:html": "cp -f app/*.html dist/ && cp -f app/*.png dist/",
-    "vocab": "npm run vocab:build && firebase serve",
-    "vocab:build" : "npm run build:clean && npm run vocab:html && webpack --config ./webpack.config.vocab.js",
-    "vocab:html": "cp -f vocab/*.html dist/ "
+    "build:html": "cp -f app/*.html dist/ && cp -f app/*.png dist/"
   },
   "keywords": [
     "vocabulary",
