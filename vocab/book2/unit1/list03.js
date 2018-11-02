@@ -58,7 +58,7 @@ module.exports = {
 			"de": ["keltisch"]
 		},
 		{
-			"en": ["welsh"],
+			"en": ["Welsh"],
 			"de": ["walisisch", "der Waliser", "die Waliserin"]
 		},
 		{

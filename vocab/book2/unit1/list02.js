@@ -19,7 +19,7 @@ module.exports = {
 		},
 		{
 			"en": ["anonymous"],
-			"de": [""]
+			"de": ["anonym"]
 		},
 		{
 			"en": ["police"],

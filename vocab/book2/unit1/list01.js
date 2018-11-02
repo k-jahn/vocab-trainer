@@ -6,7 +6,7 @@ module.exports = {
 			"de": ["der Beste","die Beste","das Beste"]
 		},
 		{
-			"en": ["age"],
+			"en": ["ago"],
 			"de": ["vor", "(zeitlich)"]
 		},
 		{
@@ -22,8 +22,12 @@ module.exports = {
 			"de": ["auch"]
 		},
 		{
-			"en": ["that\'s how", "so"],
-			"de": ["noticeboard", "schwarzes Brett"]
+			"en": ["noticeboard"],
+			"de": ["schwarzes Brett"]
+		},
+		{
+			"en": ["that\'s how"],
+			"de": ["so"]
 		},
 		{
 			"en": ["month"],

@@ -48,6 +48,10 @@
     }
 }
 
+#spielBox {
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+}
+
 #en {
     background-color: #5555ff;
 }
@@ -65,15 +69,17 @@
     justify-content: space-between;
     align-items: center;
     height: 1.5em;
-    padding: 1em;
+	padding: 1em;
+	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
 }
 
 #selectBook {
-	width: 10em;
+	width: 9em;
 }
 #selectUnit {
-	width: 10em;
+	width: 9em;
 }
 #selectList {
-	width: 20em;
+	width: 24em;
 }
+

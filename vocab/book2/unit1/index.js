@@ -3,6 +3,7 @@ import list01 from './list01';
 import list02 from './list02';
 import list03 from './list03';
 import list04 from './list04';
+import list05 from './list05';
 
 
 
@@ -13,5 +14,6 @@ export default {
 	list02: list02,
 	list03: list03,
 	list04: list04,
+	list05: list05,
 };
 
