@@ -1,0 +1,40 @@
+// imports
+@import 'bootstrap';
+@import 'spinner';
+@import 'vocab_trainer';
+// general
+body * {
+    font-family: 'roboto' sans-serif;
+}
+
+.wrapper {
+    width: 900px !important;
+    height: 100vh;
+	margin: 0 auto;
+	// box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
+	padding: 2em 0;
+}
+
+.hidden {
+    display: none;
+    &.active {
+        display: block;
+    }
+}
+
+input {
+    width: 100%;
+    text-align: center;
+}
+
+.hiddenFlex {
+    display: none !important;
+    &.active {
+        display: flex !important;
+    }
+}
+
+.progress {
+    margin-top: 1em;
+    height: 4px;
+}

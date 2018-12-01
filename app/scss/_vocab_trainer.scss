@@ -1,4 +1,4 @@
-#infos {
+#stats {
     .wert {
         font-weight: bold;
     }
@@ -6,27 +6,24 @@
         margin-right: 1em;
     }
 }
-
-#list {
-    padding: 1em;
-    text-align: right;
+#gameState {
+    margin-bottom: 1em;
 }
 
-#anzeigeRichtig {
-    color: green;
-}
+// #anzeigeRichtig {
+//     color: green;
+// }
 
-#anzeigeFalsch {
-    color: red;
-}
-
-#infos .wert {
-    font-weight: bold;
-}
-
-.round {
-    border-radius: 20px;
-    overflow: hidden;
+// #anzeigeFalsch {
+//     color: red;
+// }
+#gameState {
+    .richtig {
+        background-color: green;
+    }
+    .falsch {
+        background-color: red;
+    }
 }
 
 .wortPaar {
@@ -48,22 +45,6 @@
     }
 }
 
-#spielBox {
-	box-shadow: 2px 2px 2px rgba(0,0,0,0.4);
-}
-
-#en {
-    background-color: #5555ff;
-}
-
-#de {
-    background-color: #55dd55
-}
-
-#end {
-    display: none;
-}
-
 #controlpanel {
     background-color: #dddddd;
     justify-content: space-between;
@@ -83,3 +64,7 @@
 	width: 24em;
 }
 
+#history {
+    height: 40em;
+    overflow: auto;
+}

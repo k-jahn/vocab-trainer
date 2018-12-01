@@ -16,109 +16,102 @@
 	<!-- include only the Firebase features as you need -->
 	<script defer src="/__/firebase/5.5.6/firebase-auth.js"></script>
 	<script defer src="/__/firebase/5.5.6/firebase-database.js"></script>
-	<script defer src="/__/firebase/5.5.6/firebase-messaging.js"></script>
-	<script defer src="/__/firebase/5.5.6/firebase-storage.js"></script>
 	<!-- initialize the SDK after all desired features are loaded -->
 	<script defer src="/__/firebase/init.js"></script>
 
-
-	<div class="container">
-
-		<h1>Vocabulary Trainer</h1>
-		<div id="list">
-			<div id="nextList" class="hidden">
-				Train List:
-				<select id="selectBook"></select>
-				<select id="selectUnit"></select>
-				<select id="selectList"></select>
-	
-				<button id="startEnglish">
-					english
-				</button>
-				<button id="startDeutsch">
-					deutsch
-				</button>
+	<div class="wrapper">
+		<div id="newGame" class="hidden">
+			<h2>Vocabulary Trainer</h1>
+			<div class="input-group">
+				<!-- <div class="input-group-prepend">
+					<label class="input-group-text" for="inputGroupSelect01">
+						Train List
+					</label>
+				</div> -->
+				<select class="form-control" id="selectBook">
+				</select>
+				<select class="form-control" id="selectUnit">
+				</select>
+				<select class="form-control" id="selectList">
+				</select>
+				<div class="input-group-append">
+					<button id="startEnglish" class="btn btn-primary">
+						english
+					</button>
+					<button id="startDeutsch" class="btn btn-primary">
+						deutsch
+					</button>
+				</div>
 			</div>
-			<div id="currentList" class="hidden">
+			<p>
+				by Konrad for Lovis
+			</p>
+		</div>
 
+		<div id="loading" class="hiddenFlex active d-flex justify-content-center">
+			<div class="col">
+				Loading vocabulary from database...
+			</div>
+			<div class="col">
+				<div class="sk-circle">
+					<div class="sk-circle1 sk-child"></div>
+					<div class="sk-circle2 sk-child"></div>
+					<div class="sk-circle3 sk-child"></div>
+					<div class="sk-circle4 sk-child"></div>
+					<div class="sk-circle5 sk-child"></div>
+					<div class="sk-circle6 sk-child"></div>
+					<div class="sk-circle7 sk-child"></div>
+					<div class="sk-circle8 sk-child"></div>
+					<div class="sk-circle9 sk-child"></div>
+					<div class="sk-circle10 sk-child"></div>
+					<div class="sk-circle11 sk-child"></div>
+					<div class="sk-circle12 sk-child"></div>
+				</div>
 			</div>
 		</div>
-		<div id="loading" class="hiddenFlex active">
-			<div>
-				Loading vocabulary lists...
-			</div>
-			<div class="sk-circle">
-				<div class="sk-circle1 sk-child"></div>
-				<div class="sk-circle2 sk-child"></div>
-				<div class="sk-circle3 sk-child"></div>
-				<div class="sk-circle4 sk-child"></div>
-				<div class="sk-circle5 sk-child"></div>
-				<div class="sk-circle6 sk-child"></div>
-				<div class="sk-circle7 sk-child"></div>
-				<div class="sk-circle8 sk-child"></div>
-				<div class="sk-circle9 sk-child"></div>
-				<div class="sk-circle10 sk-child"></div>
-				<div class="sk-circle11 sk-child"></div>
-				<div class="sk-circle12 sk-child"></div>
-			  </div>
-		</div>
-		<div id="controlpanel" class="round hiddenFlex">
-			<div id="infos">
-				<span id="anzeigeRunde">
-					Round:
-					<span class="wert">
-						0
+		<div id="gameState" class="hidden">
+			<div class="d-flex">
+				<div id="currentList" class="col"></div>
+				<div id="stats" class="hidden col-auto text-right">
+					<span id="anzeigeRunde">
+						Round:
+						<span class="wert">
+							0
+						</span>
 					</span>
-				</span>
-				<span id="anzeigeVokabeln">
-					Word:
-					<span class="wert">
-						0
-					</span>
-					/
-					<span class="wert">
-						0
-					</span>
-				</span>
-				<span id="anzeigeRichtig">
-					Correct:
-					<span class="wert">
-						0
-					</span>
-				</span>
-				<span id="anzeigeFalsch">
-					Incorrect:
-					<span class="wert">
-						0
-					</span>
-				</span>
-			</div>
-			<div></div>
-			<div id="nextRound" class="hidden">
-				<button id="startRound">
+				</div>
+				<button id="nextRound" class="btn hidden">
 					next round
 				</button>
+				</div>
+			<div class="progress">
+				<div class="progress-bar richtig" role="progressbar" style="width: 0%"></div>
+				<div class="progress-bar falsch" role="progressbar" style="width: 0%"></div>
 			</div>
 		</div>
 
-		<div id="spielBox" class="wortPaar hiddenFlex round">
-			<div id="en">
+		<div id="spielBox" class="d-flex hiddenFlex text-center">
+			<div id="en" class="col">
 			</div>
-			<div id="de">
+			<div id="de" class="col">
 			</div>
 		</div>
 		<div id="end" class="hidden">
-			<h2>Done! Score:
-				<span class=wert>
-					<!-- erreicht -->
-				</span>
-				/
-				<span class=wert>
-					<!-- maximal -->
-				</span>
-			</h2>
+			<div class="d-flex justify-content-between">
+				<h2>Done!
+					<span class=wert>
+						<!-- erreicht -->
+					</span>
+					<span class=wert>
+						<!-- maximal -->
+					</span>
+				</h2>
+				<button id="nextList" class="btn btn-primary">
+					Next list
+				</button>
+			</div>
 		</div>
-		<div id="verlauf">
+		<div id="history">
 
 		</div>
 	</div>

@@ -1,14 +1,13 @@
 {
   "name": "a-small-vocabular-trainer",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A small Vocabulary Trainer WebApp",
   "scripts": {
     "deploy": "npm run build:prod && firebase deploy",
     "serve": "npm run build:dev && firebase serve",
-    "build:dev": "npm run build:clean && npm run build:html && npm run build:sass && webpack --config=webpack.config.dev.js",
-    "build:prod": "npm run build:clean && npm run build:html && npm run build:sass && webpack --config=webpack.config.prod.js",
+    "build:dev": "npm run build:clean && npm run build:html && webpack --config=webpack.config.dev.js",
+    "build:prod": "npm run build:clean && npm run build:html && webpack --config=webpack.config.prod.js",
     "build:clean": "rm -rf dist/ && mkdir dist/",
-    "build:sass": "sass app/scss/index.scss dist/style.css",
     "build:html": "cp -f app/*.html dist/ && cp -f app/*.png dist/"
   },
   "keywords": [
@@ -19,7 +18,15 @@
   "author": "Konrad Jahn",
   "license": "ISC",
   "devDependencies": {
+    "css-loader": "^1.0.1",
+    "jquery": "^3.3.1",
+    "mini-css-extract-plugin": "^0.4.5",
+    "node-sass": "^4.10.0",
+    "sass-loader": "^7.1.0",
     "webpack": "^4.23.1",
     "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.3"
   }
 }
