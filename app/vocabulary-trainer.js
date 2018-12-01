@@ -44,8 +44,8 @@ module.exports = class VocabularyTrainer {
 		this.el.startEnglish.addEventListener('touch', function (e) { this.newGameListener('en', 'de'); }.bind(this));
 		this.el.startRound.addEventListener('click', function (e) { this.startNeueRunde(); }.bind(this));
 		this.el.startRound.addEventListener('touch', function (e) { this.startNeueRunde(); }.bind(this));
-		this.el.selectBook.addEventListener('change', function (e) { this.populateSelectListener(this.el.selectUnit, this.vocabulary[e.target.value]); }.bind(this));
-		this.el.selectUnit.addEventListener('change', function (e) { this.populateSelectListener(this.el.selectList, this.vocabulary[this.el.selectBook.value][e.target.value]); }.bind(this));
+		this.el.selectBook.addEventListener('change', function (e) { this.populateSelectListener(this.el.selectUnit, this.vocabulary.books[e.target.value]); }.bind(this));
+		this.el.selectUnit.addEventListener('change', function (e) { this.populateSelectListener(this.el.selectList, this.vocabulary.books[this.el.selectBook.value].units[e.target.value]); }.bind(this));
 		this.showNewGame();
 
 		// populate book select
@@ -55,12 +55,16 @@ module.exports = class VocabularyTrainer {
 	// event listnener functions
 	populateSelectListener(selectElement, object) {
 		selectElement.innerHTML = '';
-		for (let key in object) {
-			if (key === 'name') continue;
-			let option = document.createElement('option');
-			option.innerHTML = object[key].name;
-			option.value = key;
-			selectElement.appendChild(option);
+		for (let key of ['books','units','lists']) {
+			if (object.hasOwnProperty(key)) {
+				object[key].forEach((el, i) =>{
+					let option = document.createElement('option');
+					option.innerHTML = el.name;
+					option.value = i;
+					selectElement.appendChild(option);
+					
+				})
+			};
 		}
 		selectElement.dispatchEvent(new Event('change'));
 	};
@@ -74,12 +78,25 @@ module.exports = class VocabularyTrainer {
 	newGame() {
 		if (!this.el.selectList.value) return;
 		// neue vokabelliste
-		this.aktuelleVokabeln = this.vocabulary[this.el.selectBook.value][this.el.selectUnit.value][this.el.selectList.value].vocabulary.shuffle();;
+		this.aktuelleVokabeln = this.vocabulary
+			.books[this.el.selectBook.value]
+			.units[this.el.selectUnit.value]
+			.lists[this.el.selectList.value]
+			.vocabulary.shuffle();;
 		this.el.currentList.innerHTML = [
-			this.vocabulary[this.el.selectBook.value].name,
-			this.vocabulary[this.el.selectBook.value][this.el.selectUnit.value].name,
+			this.vocabulary
+				.books[this.el.selectBook.value]
+				.name,
+			this.vocabulary
+				.books[this.el.selectBook.value]
+				.units[this.el.selectUnit.value]
+				.name,
 			'<strong>' +
-			this.vocabulary[this.el.selectBook.value][this.el.selectUnit.value][this.el.selectList.value].name +
+			this.vocabulary
+				.books[this.el.selectBook.value]
+				.units[this.el.selectUnit.value]
+				.lists[this.el.selectList.value]
+				.name +
 			'</strong>',
 			this.abfrageSprache == 'en' ? 'english' : 'deutsch'
 		].join(' | ');
