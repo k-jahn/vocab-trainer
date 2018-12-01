@@ -1,6 +1,6 @@
 {
   "name": "a-small-vocabular-trainer",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "A small Vocabulary Trainer WebApp",
   "scripts": {
     "deploy": "npm run build:prod && firebase deploy",

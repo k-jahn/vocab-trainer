@@ -26,7 +26,7 @@ module.exports = class VocabularyTrainer {
 		this.el.selectBook = document.querySelector("#selectBook");
 		this.el.selectUnit = document.querySelector("#selectUnit");
 		this.el.selectList = document.querySelector("#selectList");
-		this.el.spielBox = document.querySelector('#spielBox');;
+		this.el.gameBox = document.querySelector('#gameBox');;
 		this.el.stats = document.querySelector('#stats');
 		this.el.startDeutsch = document.querySelector("#startDeutsch");
 		this.el.startEnglish = document.querySelector("#startEnglish");
@@ -114,7 +114,7 @@ module.exports = class VocabularyTrainer {
 		this.el.newGame.classList.remove('active');
 		this.el.currentList.classList.add('active');
 		this.el.end.classList.remove('active');
-		this.el.spielBox.classList.add('active');
+		this.el.gameBox.classList.add('active');
 		// abfrageFeld
 		let abfrageAnzeige = document.querySelector('#' + this.abfrageSprache);
 		abfrageAnzeige.innerHTML = '';
@@ -166,7 +166,7 @@ module.exports = class VocabularyTrainer {
 		} else {
 			this.index++;
 			this.history.push(this.richtigeVokabeln);
-			this.el.spielBox.classList.remove('active');
+			this.el.gameBox.classList.remove('active');
 			this.aktualisiereAnzeigen();
 			if (this.falscheVokabeln.length) {
 				this.showNewRound();
@@ -178,7 +178,7 @@ module.exports = class VocabularyTrainer {
 
 	zeigeEnde() {
 		this.el.history.innerHTML = '';
-		this.el.spielBox.classList.remove('active');
+		this.el.gameBox.classList.remove('active');
 		this.el.gameState.classList.remove('active');
 		this.el.end.classList.add('active');
 		// const score = this.history.reduce(function (a, x, i) {
@@ -246,7 +246,7 @@ module.exports = class VocabularyTrainer {
 		this.richtigeVokabeln = [];
 		this.round++;
 		this.index = 0;
-		this.el.spielBox.classList.add('active');
+		this.el.gameBox.classList.add('active');
 		this.aktualisiereAnzeigen();
 		this.zeigeVorgabe();
 		this.el.abfrageFeld.focus();

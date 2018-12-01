@@ -16,6 +16,15 @@
     }
 }
 
+#gameBox {
+    font-weight: bold;
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 #currentList, #anzeigeRunde {
     line-height: 36px;
 }
