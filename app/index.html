@@ -21,7 +21,6 @@
 
 	<div class="wrapper">
 		<div id="newGame" class="hidden">
-			<h2>Vocabulary Trainer <span class="version"></span></h1>
 			<div class="input-group">
 				<!-- <div class="input-group-prepend">
 					<label class="input-group-text" for="inputGroupSelect01">
@@ -43,9 +42,6 @@
 					</button>
 				</div>
 			</div>
-			<p>
-				by Konrad for Lovis
-			</p>
 		</div>
 
 		<div id="loading" class="hiddenFlex active d-flex justify-content-center">
@@ -83,7 +79,7 @@
 				<button id="nextRound" class="btn hidden">
 					next round
 				</button>
-				</div>
+			</div>
 			<div class="progress">
 				<div class="progress-bar richtig" role="progressbar" style="width: 0%"></div>
 				<div class="progress-bar falsch" role="progressbar" style="width: 0%"></div>
@@ -98,10 +94,11 @@
 		</div>
 		<div id="end" class="hidden">
 			<div class="d-flex justify-content-between">
-				<h2>Done!
+				<h2>
 					<span class=wert>
 						<!-- erreicht -->
 					</span>
+					-
 					<span class=wert>
 						<!-- maximal -->
 					</span>
@@ -112,9 +109,30 @@
 					</button>
 				</div>
 			</div>
+			<div>
+				<div class="progress">
+					<div class="progress-bar round1" role="progressbar" style="width: 20%"></div>
+					<div class="progress-bar round2" role="progressbar" style="width: 20%"></div>
+					<div class="progress-bar round3" role="progressbar" style="width: 20%"></div>
+					<div class="progress-bar round4" role="progressbar" style="width: 20%"></div>
+					<div class="progress-bar round5" role="progressbar" style="width: 20%"></div>
+				</div>
+			</div>
 		</div>
 		<div id="history">
 
+		</div>
+	</div>
+	<div class="fixed-bottom">
+		<div class="d-flex justify-content-between wrapper">
+			<div>
+				<span class="version"></span> |
+				<a href="https://github.com/k-jahn/vocab-trainer">source</a> |
+				<a href="mailto:konrad.jahn.84@gmail.com">feedback</a>
+			</div>
+			<div>
+				by Konrad for Lovis
+			</div>
 		</div>
 	</div>
 

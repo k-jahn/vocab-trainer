@@ -55,9 +55,9 @@ module.exports = class VocabularyTrainer {
 	// event listnener functions
 	populateSelectListener(selectElement, object) {
 		selectElement.innerHTML = '';
-		for (let key of ['books','units','lists']) {
+		for (let key of ['books', 'units', 'lists']) {
 			if (object.hasOwnProperty(key)) {
-				object[key].forEach((el, i) =>{
+				object[key].forEach((el, i) => {
 					let option = document.createElement('option');
 					option.innerHTML = el.name;
 					option.value = i;
@@ -181,46 +181,59 @@ module.exports = class VocabularyTrainer {
 		this.el.spielBox.classList.remove('active');
 		this.el.gameState.classList.remove('active');
 		this.el.end.classList.add('active');
-		const score = this.history.reduce(function (a, x, i) {
-			switch (i) {
-				case 0:
-					return {
-						achieved: a.achieved + 10 * x.length,
-						max: a.max + 10 * x.length
-					};
-				case 1:
-					return {
-						achieved: a.achieved + 5 * x.length,
-						max: a.max + 10 * x.length
-					};
-				case 2:
-					return {
-						achieved: a.achieved + 2 * x.length,
-						max: a.max + 10 * x.length
-					};
-				case 3:
-					return {
-						achieved: a.achieved + 1 * x.length,
-						max: a.max + 10 * x.length
-					};
-				default:
-					return {
-						achieved: a.achieved,
-						max: a.max + 10 * x.length
-					};
-			}
-		}, { achieved: 0, max: 0 });
-		console.log(score.achieved, score.max)
-		this.el.end.querySelector('.wert:nth-child(1)').innerHTML = score.achieved;
-		this.el.end.querySelector('.wert:nth-child(2)').innerHTML = score.max;
-		this.history.forEach(function (runde, i) {
-			let rundenUeberschrift = document.createElement('div');
-			rundenUeberschrift.innerHTML = `Round ${i + 1}`;
-			this.el.history.appendChild(rundenUeberschrift);
-			runde.forEach(function (vokabel) {
-				this.zeigeAbgefragteVokabel(vokabel, 'richtig', true);
-			}.bind(this));
-		}.bind(this));
+		// const score = this.history.reduce(function (a, x, i) {
+		// 	switch (i) {
+		// 		case 0:
+		// 			return {
+		// 				achieved: a.achieved + 10 * x.length,
+		// 				max: a.max + 10 * x.length
+		// 			};
+		// 		case 1:
+		// 			return {
+		// 				achieved: a.achieved + 5 * x.length,
+		// 				max: a.max + 10 * x.length
+		// 			};
+		// 		case 2:
+		// 			return {
+		// 				achieved: a.achieved + 2 * x.length,
+		// 				max: a.max + 10 * x.length
+		// 			};
+		// 		case 3:
+		// 			return {
+		// 				achieved: a.achieved + 1 * x.length,
+		// 				max: a.max + 10 * x.length
+		// 			};
+		// 		default:
+		// 			return {
+		// 				achieved: a.achieved,
+		// 				max: a.max + 10 * x.length
+		// 			};
+		// 	}
+		// }, { achieved: 0, max: 0 });
+		// console.log(score.achieved, score.max)
+		const total = this.history.reduce((a, r) => a + r.length, 0);
+		const percentage = Math.round(100 * this.history[0].length / total);
+		let msg;
+		if (percentage === 100) { msg = 'Perfect!'; }
+		else if (percentage >= 95) { msg = 'Wonderful!'; }
+		else if (percentage >= 90) { msg = 'Awesome!'; }
+		else if (percentage >= 85) { msg = 'Excellent'; }
+		else if (percentage >= 80) { msg = 'Good'; }
+		else if (percentage >= 75) { msg = 'Decent'; }
+		else if (percentage >= 70) { msg = 'Hmm.. OK'; }
+		else if (percentage >= 65) { msg = 'Why not?'; }
+		else if (percentage >= 60) { msg = 'Passable'; }
+		else if (percentage >= 55) { msg = 'So-so'; }
+		else if (percentage >= 50) { msg = 'Mediocre'; }
+		else if (percentage >= 45) { msg = 'Needs improvement'; }
+		else if (percentage >= 40) { msg = 'Bad'; }
+		else if (percentage >= 35) { msg = 'Very bad'; }
+		else if (percentage >= 30) { msg = 'Terrible'; }
+		else { n = 'Troll'; }
+		this.el.end.querySelector('.wert:nth-child(1)').innerHTML = `${percentage}%`;
+		this.el.end.querySelector('.wert:nth-child(2)').innerHTML = msg;
+		this.history.slice(0, 4).forEach((r, i) => this.el.end.querySelector(`.round${i + 1}`).style.width = 100 * r.length / total + '%');
+		this.el.end.querySelector('.round5').style.width = this.history[4] ? 100 * this.history.slice(4).reduce((a, e) => a + e.length, 0) / total + '%' : 0;
 	}
 
 	startNeueRunde() {
@@ -267,11 +280,13 @@ module.exports = class VocabularyTrainer {
 	showNewRound() {
 		this.el.stats.classList.remove('active');
 		this.el.nextRound.classList.add('active');
-		this.el.nextRound.innerHTML = `Round ${this.round+1}`
+		this.el.nextRound.innerHTML = `Round ${this.round + 1}`
 		this.el.nextRound.focus();
 	}
 
 	showNewGame() {
+		[1, 2, 3, 4, 5].forEach(i => this.el.end.querySelector(`.round${i}`).style.width = 0);
+
 		this.el.end.classList.remove('active');
 		this.el.history.innerHTML = '';
 		this.el.currentList.classList.remove('active');

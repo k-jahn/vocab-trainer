@@ -26,6 +26,24 @@
     }
 }
 
+#end {
+    .round1 {
+        background-color: green;
+    }
+    .round2 {
+        background-color: rgba(red,.25);
+    }
+    .round3 {
+        background-color: rgba(red,.5);
+    }
+    .round4 {
+        background-color: rgba(red,.75);
+    }
+    .round5 {
+        background-color: rgba(red,1);
+    }
+}
+
 .wortPaar {
     display: flex;
     margin: 1em 0;
