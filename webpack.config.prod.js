@@ -18,6 +18,9 @@ module.exports = {
 	plugins: [
 		new MiniCssExtractPlugin({
 			filename: 'style.css',
-		  }),
-	  ],
+		}),
+		new webpack.DefinePlugin({
+			VERSION: JSON.stringify(require("./package.json").version)
+		})
+	],
 };

@@ -1,12 +1,15 @@
 import VocabularyTrainer from './vocabulary-trainer';
 // import vocabulary from './vocabulary/index';
 import './vendor/shuffleArray';
-import 'bootstrap/js/dist/collapse';
+// import 'bootstrap/js/dist/collapse';
+
 
 let vocabularyTrainer;
 
 document.addEventListener("DOMContentLoaded", function () {
 	try {
+		document.querySelectorAll('.version').forEach(el=>el.innerHTML = VERSION);
+		
 		let app = firebase.app();
 		let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
 		let vocabDatabase = app.database().ref('/vocabulary/');

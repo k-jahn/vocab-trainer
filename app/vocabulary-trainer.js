@@ -273,7 +273,7 @@ module.exports = class VocabularyTrainer {
 
 	showNewGame() {
 		this.el.end.classList.remove('active');
-		this.el.history.classList.remove('active');
+		this.el.history.innerHTML = '';
 		this.el.currentList.classList.remove('active');
 		this.el.nextRound.classList.remove('active');
 		this.el.newGame.classList.add('active');
