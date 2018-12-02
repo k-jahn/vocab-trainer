@@ -3,6 +3,8 @@
   "version": "0.2.5",
   "description": "A small Vocabulary Trainer WebApp",
   "scripts": {
+    "version": "npm run deploy",
+    "postversion": "git push",
     "deploy": "npm run build:prod && firebase deploy",
     "serve": "npm run build:dev && firebase serve",
     "build:dev": "npm run build:clean && npm run build:html && webpack --config=webpack.config.dev.js",
