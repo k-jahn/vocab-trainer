@@ -254,19 +254,19 @@ module.exports = class VocabularyTrainer {
 
 
 	zeigeAbgefragteVokabel(vokabel, richtig, end) {
-		let wortPaar = document.createElement('div');
-		wortPaar.classList.add('wortPaar');
+		let word = document.createElement('div');
+		word.classList.add('word');
 		let english = document.createElement('div');
 		english.innerHTML = vokabel.en.join(', ');
 		let deutsch = document.createElement('div');
 		deutsch.innerHTML = vokabel.de.join(', ');
-		wortPaar.appendChild(english);
-		wortPaar.appendChild(deutsch);
-		wortPaar.classList.add(richtig);
+		word.appendChild(english);
+		word.appendChild(deutsch);
+		word.classList.add(richtig);
 		if (end) {
-			this.el.history.appendChild(wortPaar);
+			this.el.history.appendChild(word);
 		} else {
-			this.el.history.insertBefore(wortPaar, this.el.history.firstChild);
+			this.el.history.insertBefore(word, this.el.history.firstChild);
 		}
 	}
 
