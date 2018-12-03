@@ -8,4 +8,3 @@ Contributions welcome!
 
 * Google auth / storage rules
 * separate vocab list conents and labels to lower db load
-* 

@@ -2,6 +2,10 @@
   "name": "a-small-vocabular-trainer",
   "version": "0.2.6",
   "description": "A small Vocabulary Trainer WebApp",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/k-jahn/vocab-trainer.git"
+  },
   "scripts": {
     "version": "npm run build:prod && firebase deploy",
     "postversion": "git push && npm run build:dev",

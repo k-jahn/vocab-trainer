@@ -1,4 +1,4 @@
-import VocabularyTrainer from './vocabulary-trainer';
+import VocabularyTrainer from './_vocabulary-trainer';
 // import vocabulary from './vocabulary/index';
 import './vendor/shuffleArray';
 // import 'bootstrap/js/dist/collapse';
