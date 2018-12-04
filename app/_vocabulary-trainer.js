@@ -1,5 +1,7 @@
 'use strict';
 
+const RATINGS = require('./_ratings');
+
 module.exports = class VocabularyTrainer {
 
 
@@ -181,55 +183,11 @@ module.exports = class VocabularyTrainer {
 		this.el.gameBox.classList.remove('active');
 		this.el.gameState.classList.remove('active');
 		this.el.end.classList.add('active');
-		// const score = this.history.reduce(function (a, x, i) {
-		// 	switch (i) {
-		// 		case 0:
-		// 			return {
-		// 				achieved: a.achieved + 10 * x.length,
-		// 				max: a.max + 10 * x.length
-		// 			};
-		// 		case 1:
-		// 			return {
-		// 				achieved: a.achieved + 5 * x.length,
-		// 				max: a.max + 10 * x.length
-		// 			};
-		// 		case 2:
-		// 			return {
-		// 				achieved: a.achieved + 2 * x.length,
-		// 				max: a.max + 10 * x.length
-		// 			};
-		// 		case 3:
-		// 			return {
-		// 				achieved: a.achieved + 1 * x.length,
-		// 				max: a.max + 10 * x.length
-		// 			};
-		// 		default:
-		// 			return {
-		// 				achieved: a.achieved,
-		// 				max: a.max + 10 * x.length
-		// 			};
-		// 	}
-		// }, { achieved: 0, max: 0 });
-		// console.log(score.achieved, score.max)
 		const total = this.history.reduce((a, r) => a + r.length, 0);
 		const percentage = Math.round(100 * this.history[0].length / total);
-		let msg;
-		if (percentage === 100) { msg = '😍 Perfect!'; }
-		else if (percentage >= 95) { msg = '😃 Wonderful!'; }
-		else if (percentage >= 90) { msg = '😊 Awesome!'; }
-		else if (percentage >= 85) { msg = 'Excellent'; }
-		else if (percentage >= 80) { msg = 'Good'; }
-		else if (percentage >= 75) { msg = 'Decent'; }
-		else if (percentage >= 70) { msg = 'Hmm.. OK'; }
-		else if (percentage >= 65) { msg = 'Almost, keep it up'; }
-		else if (percentage >= 60) { msg = 'Keep working at it!'; }
-		else if (percentage >= 55) { msg = 'So-so'; }
-		else if (percentage >= 50) { msg = 'Mediocre'; }
-		else if (percentage >= 45) { msg = 'Needs improvement'; }
-		else if (percentage >= 40) { msg = 'Better do it again'; }
-		else if (percentage >= 35) { msg = '😕'; }
-		else if (percentage >= 30) { msg = '😭'; }
-		else { n = '😇 Troll'; }
+
+		let { msg } = RATINGS.find(e => e.minScore >= percentage);
+		
 		this.el.end.querySelector('.wert:nth-child(1)').innerHTML = `${percentage}%`;
 		this.el.end.querySelector('.wert:nth-child(2)').innerHTML = msg;
 		this.history.slice(0, 4).forEach((r, i) => this.el.end.querySelector(`.round${i + 1}`).style.width = 100 * r.length / total + '%');
