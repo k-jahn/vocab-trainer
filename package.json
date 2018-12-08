@@ -8,7 +8,7 @@
   },
   "scripts": {
     "version": "npm run build:prod && firebase deploy",
-    "postversion": "git push && npm run build:dev",
+    "postversion": "git push",
     "serve": "npm run build:dev && firebase serve",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production"

@@ -123,6 +123,10 @@ module.exports = class VocabularyTrainer {
 		this.el.abfrageFeld = document.createElement('input');
 		this.el.abfrageFeld.type = 'text';
 		this.el.abfrageFeld.id = 'abfrageFeld';
+		this.el.abfrageFeld.autocomplete = 'off';
+		this.el.abfrageFeld.autocorrect = 'off';
+		this.el.abfrageFeld.autocapitalize = 'off';
+		this.el.abfrageFeld.spellcheck = false;
 		this.el.abfrageFeld.addEventListener('keydown', this.enterGedrueckt.bind(this));
 		abfrageAnzeige.appendChild(this.el.abfrageFeld);
 		// vorgabeFeld
@@ -148,15 +152,16 @@ module.exports = class VocabularyTrainer {
 
 	evaluateInput() {
 		// richtig oder falsch?
+		const inputString = document.querySelector('#abfrageFeld').value;
 		if (
 			this.aktuelleVokabeln[this.index][this.abfrageSprache]
-				.some(definition => !/^\(.+\)$/.test(definition) && definition === document.querySelector('#abfrageFeld').value)
+				.some(definition => !/^\(.+\)$/.test(definition) && definition === inputString)
 		) {
 			this.richtigeVokabeln.push(this.aktuelleVokabeln[this.index]);
-			this.zeigeAbgefragteVokabel(this.aktuelleVokabeln[this.index], 'richtig');
+			this.showWord(this.aktuelleVokabeln[this.index], false, true);
 		} else {
 			this.falscheVokabeln.push(this.aktuelleVokabeln[this.index]);
-			this.zeigeAbgefragteVokabel(this.aktuelleVokabeln[this.index], 'falsch');
+			this.showWord(this.aktuelleVokabeln[this.index], false, false, inputString);
 		}
 		this.el.abfrageFeld.value = '';
 		// runde zuende?
@@ -186,7 +191,7 @@ module.exports = class VocabularyTrainer {
 		const percentage = Math.round(100 * this.history[0].length / total);
 
 		let { msg } = RATINGS.find(e => e.minScore <= percentage);
-		
+
 		this.el.end.querySelector('.wert:nth-child(1)').innerHTML = `${percentage}%`;
 		this.el.end.querySelector('.wert:nth-child(2)').innerHTML = msg;
 		this.history.slice(0, 4).forEach((r, i) => this.el.end.querySelector(`.round${i + 1}`).style.width = 100 * r.length / total + '%');
@@ -209,21 +214,29 @@ module.exports = class VocabularyTrainer {
 		this.el.abfrageFeld.focus();
 	}
 
-
-	zeigeAbgefragteVokabel(vokabel, richtig, end) {
-		let word = document.createElement('div');
-		word.classList.add('word');
+	showWord(word, end, correct, inputString) {
+		let wordEl = document.createElement('div');
+		wordEl.classList.add('word');
 		let english = document.createElement('div');
-		english.innerHTML = vokabel.en.join(', ');
+		english.innerHTML = word.en.join(', ');
 		let deutsch = document.createElement('div');
-		deutsch.innerHTML = vokabel.de.join(', ');
-		word.appendChild(english);
-		word.appendChild(deutsch);
-		word.classList.add(richtig);
+		deutsch.innerHTML = word.de.join(', ');
+		if (!correct) {
+			let wrong = this.abfrageSprache == 'de' ? deutsch : english;
+			wordEl.classList.add('tooltip')
+			wrong.classList.add('tooltip')
+			let tooltip = document.createElement('span');
+			tooltip.classList.add('tooltip-text', 'tooltip-bottom-arrow');
+			tooltip.innerHTML = `Your answer: "${inputString}"`
+			wrong.appendChild(tooltip);
+		}
+		wordEl.appendChild(english);
+		wordEl.appendChild(deutsch);
 		if (end) {
-			this.el.history.appendChild(word);
+			this.el.history.appendChild(wordEl);
 		} else {
-			this.el.history.insertBefore(word, this.el.history.firstChild);
+			wordEl.classList.add(correct ? 'richtig' : 'falsch');
+			this.el.history.insertBefore(wordEl, this.el.history.firstChild);
 		}
 	}
 
@@ -243,7 +256,6 @@ module.exports = class VocabularyTrainer {
 
 	showNewGame() {
 		[1, 2, 3, 4, 5].forEach(i => this.el.end.querySelector(`.round${i}`).style.width = 0);
-
 		this.el.end.classList.remove('active');
 		this.el.history.innerHTML = '';
 		this.el.currentList.classList.remove('active');

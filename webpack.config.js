@@ -4,9 +4,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
+let config = {
 	entry: ['./app/index.js', './app/scss/main.scss'],
-	mode: 'development',
 	module: {
 		rules: [
 			{
@@ -35,4 +34,11 @@ module.exports = {
 			VERSION: JSON.stringify(require("./package.json").version)
 		})
 	],
+};
+
+module.exports = (env, args) => {
+	if (args.mode === 'development') {
+		config.watch = true;
+	}
+	return config;
 };
