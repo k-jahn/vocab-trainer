@@ -141,8 +141,7 @@ module.exports = class VocabularyTrainer {
 	}
 
 	enterGedrueckt(event) {
-		if (event.keyCode == 13 && event.target.value) {
-			event.preventDefault();
+		if (event.key === 'Enter') {
 			this.evaluateInput();
 		}
 	}
@@ -151,7 +150,7 @@ module.exports = class VocabularyTrainer {
 		// richtig oder falsch?
 		if (
 			this.aktuelleVokabeln[this.index][this.abfrageSprache]
-				.some(definition => definition == document.querySelector('#abfrageFeld').value)
+				.some(definition => !/^\(.+\)$/.test(definition) && definition === document.querySelector('#abfrageFeld').value)
 		) {
 			this.richtigeVokabeln.push(this.aktuelleVokabeln[this.index]);
 			this.zeigeAbgefragteVokabel(this.aktuelleVokabeln[this.index], 'richtig');
