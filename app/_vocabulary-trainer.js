@@ -185,7 +185,7 @@ module.exports = class VocabularyTrainer {
 		const total = this.history.reduce((a, r) => a + r.length, 0);
 		const percentage = Math.round(100 * this.history[0].length / total);
 
-		let { msg } = RATINGS.find(e => e.minScore >= percentage);
+		let { msg } = RATINGS.find(e => e.minScore <= percentage);
 		
 		this.el.end.querySelector('.wert:nth-child(1)').innerHTML = `${percentage}%`;
 		this.el.end.querySelector('.wert:nth-child(2)').innerHTML = msg;
