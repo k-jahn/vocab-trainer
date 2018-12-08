@@ -15,15 +15,15 @@ document.addEventListener("DOMContentLoaded", function () {
 		let provider = new firebase.auth.GoogleAuthProvider();
 		firebase.auth().signInWithPopup(provider)
 			.then(r => {
-				console.log(r.user);
+				let photo = document.createElement('img')
+				photo.src = r.user.photoURL;
+				photo.classList.add('avatar');
+				let name = document.createElement('span');
+				name.innerHTML = r.user.displayName;
+				document.querySelector('#user').appendChild(photo);
+				document.querySelector('#user').appendChild(name);
 				let vocabDatabase = app.database().ref('/vocabulary/');
 				console.log(`Firebase SDK loaded with ${features.join(', ')}`);
-				// vocabDatabase.remove()
-				// 	.then(_ => {
-				// 		vocabDatabase.set(vocabulary);
-				// 		console.log('vocabulary uploaded!');
-				// 		console.log(vocabulary);
-				// 	});
 				vocabDatabase.once('value')
 					.then(snapshot => {
 						let vocab = snapshot.val();
